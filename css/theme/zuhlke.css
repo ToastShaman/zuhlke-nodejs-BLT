@@ -1,0 +1,179 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+/**
+ * Zuhlke Engineering theme for reveal.js.
+ */
+@font-face {
+  font-family: Zuhlke;
+  src: url(zuhlke/AAZUEHLKE.TTF); }
+
+@font-face {
+  font-family: ZuhlkeMedium;
+  src: url(zuhlke/AAZUEHLKEMEDIUM.TTF); }
+
+@font-face {
+  font-family: ZuhlkeBold;
+  src: url(zuhlke/AAZUEHLKE-BOLD.TTF); }
+
+.zuhlke-logo {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: url(zuhlke/zuhlke_logo_small.jpg);
+  background-size: 100% 100%;
+  width: 100px;
+  height: 100px; }
+
+.highlight {
+  color: #ff830a; }
+
+.alert {
+  color: #008AB2; }
+
+.reveal section img {
+  border: none !important;
+  box-shadow: none !important; }
+
+.reveal a:not(.image) {
+  line-height: 1.3em; }
+
+.reveal .icon i {
+    font-family: 'FontAwesome';
+    font-style: normal;
+}
+
+.highlight i {
+ font-style: italic; 
+}
+
+.alert i {
+ font-style: italic; 
+}
+
+.reveal a {
+  border-bottom: 2px #ff830a dotted !important;
+}
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+body {
+  background: #f7fbfc;
+  background-color: #f7fbfc; }
+
+.reveal {
+  font-family: "Zuhlke", "Open Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  color: #333333; }
+
+::selection {
+  color: white;
+  background: #134674;
+  text-shadow: none; }
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin: 0 0 20px 0;
+  color: #333333;
+  font-family: "ZuhlkeMedium", "Quicksand", sans-serif;
+  line-height: 0.9em;
+  letter-spacing: -0.08em;
+  text-transform: uppercase;
+  text-shadow: none; }
+
+.reveal h1 {
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); }
+
+/*********************************************
+ * LINKS
+ *********************************************/
+.reveal a:not(.image) {
+  color: #ff830a;
+  text-decoration: none;
+  -webkit-transition: color .15s ease;
+  -moz-transition: color .15s ease;
+  -ms-transition: color .15s ease;
+  -o-transition: color .15s ease;
+  transition: color .15s ease; }
+
+.reveal a:not(.image):hover {
+  color: #ffb770;
+  text-shadow: none;
+  border: none; }
+
+.reveal .roll span:after {
+  color: #fff;
+  background: #bd5d00; }
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+.reveal section img {
+  margin: 15px 0px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 4px solid #333333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear; }
+
+.reveal a:hover img {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ff830a;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
+
+/*********************************************
+ * NAVIGATION CONTROLS
+ *********************************************/
+.reveal .controls div.navigate-left,
+.reveal .controls div.navigate-left.enabled {
+  border-right-color: #ff830a; }
+
+.reveal .controls div.navigate-right,
+.reveal .controls div.navigate-right.enabled {
+  border-left-color: #ff830a; }
+
+.reveal .controls div.navigate-up,
+.reveal .controls div.navigate-up.enabled {
+  border-bottom-color: #ff830a; }
+
+.reveal .controls div.navigate-down,
+.reveal .controls div.navigate-down.enabled {
+  border-top-color: #ff830a; }
+
+.reveal .controls div.navigate-left.enabled:hover {
+  border-right-color: #ffb770; }
+
+.reveal .controls div.navigate-right.enabled:hover {
+  border-left-color: #ffb770; }
+
+.reveal .controls div.navigate-up.enabled:hover {
+  border-bottom-color: #ffb770; }
+
+.reveal .controls div.navigate-down.enabled:hover {
+  border-top-color: #ffb770; }
+
+/*********************************************
+ * PROGRESS BAR
+ *********************************************/
+.reveal .progress {
+  background: rgba(0, 0, 0, 0.2); }
+
+.reveal .progress span {
+  background: #ff830a;
+  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }

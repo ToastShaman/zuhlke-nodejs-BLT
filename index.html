@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Node.js - An Introduction</title>
+
+    <meta name="description" content="An introduction to Node.js and modern web application development technologies">
+    <meta name="author" content="Kevin Denver">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/zuhlke.css" id="theme">
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="lib/css/font-awesome.min.css">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/github.css">
+
+    <!-- Flip animation -->
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Favicon -->
+    <link href="css/theme/zuhlke/favicon.ico" rel="shortcut icon">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <span class="zuhlke-logo"></span>         
+          <h1>Node.js</h1>
+          <h3>An introduction to Node.js and JavaScript based web application development technologies</h3>
+          <p>
+            <small>Created by <a href="mailto:kevin.denver@zuhlke.com">Kevin Denver &lt;kevin.denver@zuhlke.com&gt; / <a href="http://www.zuehlke.com" target="_blank">Zuhlke</a></small>
+          </p>
+          <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank" style="border-bottom: none !important;"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+          </p>
+        </section>
+
+        <section>
+          <p>
+            <img src="images/toolset.png" class="shake" />
+          </p>
+          <p>
+            The goal of this presentation is to give you an introduction to <span class="highlight">Node.js</span>, <span class="highlight">Yeoman</span>, 
+            <span class="highlight">Bower</span>, <span class="highlight">Grunt</span> for building your enterprise web applications in JavaScript as well as other 
+            technologies/libraries such as <span class="highlight">Mocha</span> for testing.
+          </p>
+        </section>
+
+        <section>
+          <section>
+            <h2>Welcome to Node.js</h2>
+          </section>
+
+          <section>
+            <p>
+              Node is designed for <span class="highlight"><i>DIRT</i></span>. It stands for <span class="highlight"><i>data-intensive real time</i></span> applications.
+            </p>
+            <p>
+              Node's goal is to provide an easy way to build scalable network programs.
+            </p>
+            <br>
+            <blockquote cite="http://nodejs.org/">
+              "Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices."
+            </blockquote>
+          </section>
+
+          <section>
+            <p><span class="highlight">When To Use Node?</span></p>
+            <p><span class="highlight">Single Page Apps</span> If you are planning to write an AJAX heavy single page app (think gmail), Node.js is a great fit 
+              as well. The ability to process many requests / seconds with low response times, as well as sharing things like validation code between the client 
+              and server make it a great choice for modern web applications that do lots of processing on the client.
+            </p>
+            <p><span class="highlight">JSON API's</span> Building light-weight REST / JSON API's is something where Node.js really shines. Its non-blocking I/O model combined with JavaScript 
+            make it a great choice for wrapping other data sources such as databases or web services and exposing them via a JSON interface.
+            </p>
+
+          </section>
+
+          <section>
+            <p>
+               Node.js is a packaged compilation of Google's <a href="https://developers.google.com/v8/" target="_blank">V8 JavaScript engine</a>.
+            </p>
+            <p>
+              V8 is Google's open source high-performance JavaScript engine, written in C++ and used in Google Chrome. It implements 
+              ECMAScript as specified in <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm" target="_blank">ECMA-262, 5th edition</a>.
+            </p>
+            <p>
+               V8 compiles JavaScript to native machine code before executing it, instead of more traditional techniques such as executing bytecode or 
+               interpreting it. The compiled code is additionally optimised (and re-optimised) dynamically at runtime, based on heuristics of the code's execution profile.  
+            </p>
+          </section>
+
+          <section>
+            <p>
+              <span class="highlight">npm</span> is the package manager for the Node JavaScript platform. It puts modules in place so that node can find them, and manages dependency conflicts intelligently.
+            </p>
+            <pre><code class="bash" data-trim style="font-size: 18px; margin-bottom: 30px;">
+$ npm install cowsay
+$ cowthink node.js is cool
+ _________________
+( node.js is cool )
+ -----------------
+        o   ^__^
+         o  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+            </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+// package.json
+// npm init creates an initial package.json file
+// Add dependencies to your project by calling npm install MODULE --save
+// Add development dependencies to your project by calling npm install MODULE --save-dev
+{
+  "name": "HelloWorld",
+  "version": "0.0.1",
+  "description": "My first Node application",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Kevin Denver",
+  "license": "MIT",
+  "dependencies": {
+    "cowsay": "~1.0.3"
+  },
+  "devDependencies": {
+    "should": "~2.1.1",
+    "grunt": "~0.4.2"
+  }
+}
+            </pre></code>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+// index.js
+var cowsay = require('cowsay');
+console.log(cowsay.say({text: 'Hello World', e: "oO", T: 'U '}));
+            </pre></code>
+            <pre><code class="bash" data-trim style="font-size: 18px; margin-bottom: 30px;">
+ $ node index.js
+ _____________
+< Hello World >
+ -------------
+        \   ^__^
+         \  (oO)\_______
+            (__)\       )\/\
+             U  ||----w |
+                ||     ||
+            </pre></code>
+          </section>
+
+          <section>
+            <p>Node is being used in production by these companies: <span class="highlight">eBay, PayPal, Walmart, Groupon, LinkedIn, Yammer</span> just to name a few.</p>
+            <pre><code class="markdown" data-trim style="font-size: 18px; margin-bottom: 30px;">
+// LinkedIn
+When LinkedIn went to rebuild their Mobile application they decided to use Node.js for their 
+Mobile application server which acts as a REST endpoint for Mobile devices. Their 
+engineering blog talks about the Mobile stack.
+            </code></pre>
+            <pre><code class="markdown" data-trim style="font-size: 18px; margin-bottom: 30px;">
+// PayPal
+We started in January and it took us a few months to get the necessary infrastructure in place 
+for node.js to work in PayPal, e.g. sessions, centralized logging, keystores. During this time 
+we had five engineers working on the Java application. Two months in to the Java development, 
+two engineers started working on the parallel node.js app. In early June they met at a 
+crossroads, the applications had the same set of functionality; the node.js application, 
+a smaller team with a two month delayed start, had quickly caught up. A few details stood 
+out after we ran the test cases and both applications passed the same functional tests. 
+The node.js app was:
+
+    * Built almost twice as fast with fewer people
+    * Written in 33% fewer lines of code
+    * Constructed with 40% fewer files
+            </code></pre>
+          </section>
+
+          <section>
+            <iframe width="560" height="315" src="http://www.youtube-nocookie.com/embed/1e1zzna-dNw?rel=0" frameborder="0" allowfullscreen></iframe>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Node Programming Fundamentals</h2>
+          </section>
+
+          <section>
+            <p>
+              <img src="images/threading-models.png" />
+            </p>
+          </section>
+
+          <section>
+            <div class="flip"> 
+              <div class="card"> 
+                <div class="face front">
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var http = require('http');
+
+function getSomething() {
+  http.get('http://www.google.com', function(response) {
+    return response; // ??????
+  });
+}
+
+function saySomething(what) {
+  console.log(what);
+}
+
+var something = getSomething();
+saySomething(something);
+                  </code></pre>
+                </div> 
+                <div class="face back">
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var http = require('http');
+
+function getSomething() {
+  http.get('http://www.google.com', function(response) {
+    return response; // ??????
+  });
+  // returns nothing... undefined
+}
+
+function saySomething(what) {
+  console.log(what);
+}
+
+var something = getSomething(); // something = undefined
+saySomething(something);
+                  </code></pre>
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+undefined
+                  </code></pre>
+                </div>
+              </div> 
+            </div>
+            <span class="icon"><i class="fa fa-refresh"></i></span>
+          </section>
+
+          <section>
+            <p>
+              <img src="images/mind-blown.gif" style="width: 709px; height: 400px"/>
+            </p>
+          </section>
+
+          <section>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var http = require('http');
+
+function getSomething(callback) {
+  http.get('http://www.google.com', function(response) {
+    callback(response);
+  });
+}
+
+function saySomething(what) {
+  console.log(what);
+}
+
+getSomething(function(what) {
+  saySomething(what);
+});
+            </code></pre>  
+          </section>
+
+          <section>
+            <p>This code is running on a <span class="highlight">single thread</span>, waiting for a web request. When a web request, comes in 
+              you want to pass the work off to an <span class="highlight">asynchronous callback handler</span>, freeing the main thread to 
+              respond to more requests.
+            </p>
+            <p><span class="highlight">If you block the main event loop, then no more requests will processed until it completes.</span></p>
+            <div class="flip"> 
+              <div class="card"> 
+                <div class="face front">
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var http = require('http');
+var url = require('url');
+
+http.createServer(function(request, response) {
+
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  
+  if (url.parse(request.url).pathname === '/wait') {
+    var startTime = new Date().getTime();
+    while (new Date().getTime() < startTime + 15000) {
+      // do nothing
+    }
+    response.write('Thanks for waiting!');
+  } else {
+    response.write('Hello!');
+  }
+  
+  response.end();
+  
+}).listen(3000);
+                  </code></pre>
+                </div> 
+                <div class="face back">
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var http = require('http');
+var url = require('url');
+var cp = require('child_process');
+
+http.createServer(function(request, response) {
+  var pathname = url.parse(request.url).pathname;
+
+  if (pathname === '/wait') {
+    cp.exec('node block.js', myCallback);
+  } else {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write('Hello!\n');
+    response.end();
+  }
+
+  function myCallback() {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write('Thanks for waiting!\n');
+    response.end();
+  }
+}).listen(3000);
+                  </code></pre>
+                </div>
+              </div> 
+            </div>
+            <span class="icon"><i class="fa fa-refresh"></i></span>
+            <aside class="notes">
+              <p>When writing node applications, there are a few concepts that are important to understand in order to create large-scale applications. 
+              Because node.js applications are single threaded, it’s very important that you keep to the asynchronous model.
+              </p>
+            </aside>
+          </section>
+
+          <section>
+            <p>A <span class="highlight"><i>callback</i></span> is a function, passed as an argument to an asynchronous function, that 
+              describes what to do after the asynchronous operation has completed. Callbacks are used frequently in Node development.
+            </p>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+fs = require('fs')
+
+function readFile(filename, callback) {
+  fs.readFile(filename, function(err, data) {
+    if (err) {
+      callback(err);
+    }
+    callback(null, data.toString());
+  }); 
+}
+
+readFile('./erlkoenig.txt', function(err, data) {
+  if (err) {
+    return console.error(err);
+  }
+  console.log(data);
+});
+             </code></pre>
+             <p>
+          </section>
+
+          <section>
+            <p>JavaScript that uses callbacks, is hard to get right intuitively. A lot of code ends up in</p>
+            <p><span class="highlight"><i>Callback Hell!</i></span></p>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+var fs = require('fs');
+var gm = require('gm').subClass({ imageMagick: true });
+var S = require('string');
+function readdir(source) {
+  fs.readdir(source, function(err, files) {
+    if (err) {
+      console.log('Error finding files: ' + err)
+    } else {
+      files.forEach(function(filename, fileIndex) {
+        console.log(source + filename);
+        if (S(filename).endsWith('.jpeg')) {
+          gm(source + filename).size(function(err, values) {
+            if (err) {
+              console.log('Error identifying file size: ' + err)
+            } else {
+              console.log(filename + ' : ' + values);
+              aspect = (values.width / values.height);
+              widths.forEach(function(width, widthIndex) {
+                height = Math.round(width / aspect);
+                console.log('resizing ' + filename + 'to ' + height + 'x' + height);
+                this.resize(width, height).write(destination + 'w' + width + '_' + filename, function(err) {
+                  if (err) console.log('Error writing file: ' + err);
+                })
+              }.bind(this));
+            }
+          });
+        }
+      });
+    }
+  });
+}
+readdir('./');
+              </code></pre>
+          </section>
+
+          <section>
+            <p>You can avoid a callback hell by writing <span class="highlight">named functions</span> that handle the individual levels of callback nesting.
+              Another way of dealing with callback hell is to use third party libraries such as <a href="https://github.com/caolan/async" target="_blank">async</a> 
+              or <a href="https://github.com/kriskowal/q" target="_blank">Q</a>. A promise represents the eventual result of an asynchronous operation.</p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+async.series([
+  function(callback) {
+    asyncCall(callback);
+  },
+  function(data1, callback) {
+    anotherAsyncCall(null, data1, callback);
+  },
+  function(data1, data2, callback){
+    oneMoreAsyncCall(null, data1, data2, callback);
+  }
+], function(err, result) {
+  // done, and handle any error resulting from any of the above calls    
+});
+            </code></pre>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+asyncCall()
+.then(function(data1) {
+    // do something...
+    return anotherAsyncCall();
+})
+.then(function(data2) {
+    // do something...  
+    return oneMoreAsyncCall();    
+})
+.then(function(data3) {
+   // the third and final async response
+})
+.fail(function(err) {
+   // handle any error resulting from any of the above calls    
+}).done();
+            </code></pre>
+          </section>
+
+          <section>
+            <p><span class="highlight"><i>Control Flow Patterns</i></span> allow you to run tasks in parallel or in series.</p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+function doAsyncTasks() {
+  asyncCall().then(anotherAsyncCall()).then(oneMoreAsyncCall()).done(); 
+}
+            </code></pre>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+function doAsyncTasks() {
+  Q.all([asyncCall(), anotherAsyncCall(), oneMoreAsyncCall()]).done();
+})
+            </code></pre>            
+          </section>
+
+          <section>
+            <p>As your project becomes bigger you'll need to bundle your code into reusable Node modules. 
+              <span class="highlight"><i>Node modules</i></span> allow you to select what functions and variables from the included file are exposed to the application.
+            </p> 
+            <div class="flip"> 
+              <div class="card"> 
+                <div class="face front">
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var Currency = require('./currency');
+
+var currency = new Currency();
+
+currency.usdToGBP(100).then(function(amount) {
+  console.log('100 USD = ' + amount + ' GBP');
+}).fail(function(err) {
+  console.error(err);
+});
+                  </code></pre>
+                </div> 
+                <div class="face back">
+                  <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+// currency.js
+var request = require('request');
+var sprintf = require('sprintf');
+var Q = require('q');
+
+function Currency() {
+  this.url = 'http://rate-exchange.appspot.com/currency?from=%s&to=%s';
+}
+
+Currency.prototype.getRate = function(from, to) {
+  var deferred = Q.defer();
+  request(sprintf(this.url, from, to), function(err, response, body) {
+    if (err || response.statusCode !== 200) {
+      return deferred.reject(new Error(err));
+    }
+    deferred.resolve(JSON.parse(body));
+  });
+  return deferred.promise;
+}
+
+Currency.prototype.usdToGBP = function(amount) {
+  var deferred = Q.defer();
+  this.getRate('USD', 'GBP').then(function(data) {
+    if (!data.rate) {
+      return deferred.reject(new Error(data));
+    }
+    deferred.resolve(amount * data.rate);
+  });
+  return deferred.promise;
+};
+
+module.exports = Currency;                    
+                  </code></pre>
+                </div>
+              </div> 
+            </div>
+            <span class="icon"><i class="fa fa-refresh"></i></span>
+          </section>
+
+          <section>
+            <p>
+              <img src="images/node-modules.png" />
+            </p>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Testing Node Applications</h2>
+          </section>
+
+          <section>
+            <p>Two widely used libraries for testing are <a href="http://visionmedia.github.io/mocha/" target="_blank">Mocha</a> 
+              and <a href="https://github.com/visionmedia/should.js/" target="_blank">should.js</a>. Think jUnit and Hamcrest.
+            </p>
+            <p>The following example uses Node's built in <span class="highlight">assert</span> module.</p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var assert = require("assert")
+describe('Array', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function() {
+      assert.equal(-1, [1,2,3].indexOf(5));
+      assert.equal(-1, [1,2,3].indexOf(0));
+    });
+  });
+});
+            </code></pre>
+          </section>
+
+          <section>
+            <p><span class="highlight">should.js</span> is an expressive, readable, test framework agnostic, assertion library for node. 
+              It extends the Object prototype with a single non-enumerable getter that allows you to express how that object should behave.
+            </p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var should = require('should');
+var user = { name: 'tj', age: 10, pets: ['tobi', 'loki', 'jane', 'bandit'] };
+
+user.should.have.property('name', 'tj');
+
+user.should.have.property('pets').with.lengthOf(4);
+
+user.pets.should.include('loki');
+
+user.pets.should.be.instanceof(Array).and.have.lengthOf(4);
+
+user.age.should.be.within(5, 50);
+
+user.age.should.be.above(5);
+
+user.age.should.not.be.above(100);
+
+user.name.should.match(/^\w+$/);
+            </code></pre>
+          </section>
+
+<!--
+          <section>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+// test/currency.js
+var nock = require('nock'), should = require('should'), Currency = require('../currency');
+
+describe('Currency', function() {
+
+  it('should point to the right URL for downloading the currency rates', function() {
+    new Currency().should.have.property('url', 'http://rate-exchange.appspot.com/currency?from=%s&to=%s');
+  });
+
+  describe('#getRate()', function() {
+    it('should return the current currency rates for USD to GBP', function(done) {
+      var reply = {to: 'GBP', rate: 0.60968800000000001, from: 'USD'};
+      var rateExchange = nock('http://rate-exchange.appspot.com')
+        .get('/currency?from=USD&to=GBP')
+        .reply(200, reply);
+
+      var converter = new Currency();
+      
+      converter.getRate('USD', 'GBP').then(function(data) {
+        data.should.be.eql(reply);
+        done();
+      }).fail(function(err) {
+        nock.cleanAll();
+        throw err;
+      });
+    });
+  });
+
+  describe('#usdToGBP()', function() {
+    it('should convert USD to GBP', function(done) {
+      var reply = {to: 'GBP', rate: 0.60968800000000001, from: 'USD'};
+      var rateExchange = nock('http://rate-exchange.appspot.com')
+        .get('/currency?from=USD&to=GBP')
+        .reply(200, reply);
+
+      var converter = new Currency();
+      
+      converter.usdToGBP(100).then(function(amount) {
+        amount.should.be.eql(60.9688);
+        done();
+      }).fail(function(err) {
+        nock.cleanAll();
+        throw err;
+      });
+    });
+  });
+});
+            </code></pre>
+          </section>
+-->
+        </section>
+
+        <section>
+          <section>
+            <h2>Tooling</h2>
+          </section>
+
+          <section>
+            <p><span class="highlight">Grunt:</span> the JavaScript task runner for automating just about anything through a wide variety of <a href="http://gruntjs.com/plugins" target="_blank">plugins</a> (2000+).
+              Configure Grunt for your project by adding a file called: <span class="highlight"><i>Gruntfile.js</i></span>.
+            </p>
+            <p>
+              A Gruntfile is comprised of the following parts: The "wrapper" function, Project and task configuration, Loading Grunt plugins and tasks and Custom tasks.
+            </p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-top: 20px;">
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
+    concat : {
+      javascript: {
+        options: { separator : ' ' },
+        src: [ 'app/public/js/app.js', 'app/public/js/*.js', '!app/public/js/*.min.js'],
+        dest: 'dist/concat.js'
+      },
+      css: {
+        options: { separator : ' ' },
+        src: [ 'app/public/css/*.css', '!app/public/css/*.min.css'],
+        dest: 'dist/concat.css'
+      }
+    },
+
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
+        mangle: false
+      },
+      dist: {
+        files: {
+          'app/public/js/app.min.js' : [ '<%= concat.javascript.dest %>' ]
+        }
+      }
+    },
+
+    cssmin: {
+      css: {
+        src: '<%= concat.css.dest %>',
+        dest: 'app/public/css/app.min.css'
+      }
+    },
+    
+    watch: {
+      files: ['app/public/js/*.js', 'app/public/css/*.css', '!app/public/css/*.min.js', '!app/public/js/*.min.js'],
+      tasks: ['concat', 'uglify', 'cssmin']
+    }
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-css');
+
+  grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
+};            
+            </code></pre>
+          </section>
+          
+          <section>
+            <p>
+              <span class="highlight">Bower</span> is a package manager for the web. It offers a generic, unopinionated solution to the problem of <span class="highlight">front-end package management</span>.
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+// bower.json
+{
+  "name": "SampleProject",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.2.5",
+    "bootstrap": "~3.0.3",
+    "html5-boilerplate": "~4.3.0",
+    "angular-route": "~1.2.5",
+    "angular-socket-io": "~0.2.0",
+    "font-awesome": "~4.0.3",
+  }
+}
+              </code></pre>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+$ bower search jquery
+Search results:
+
+    jquery git://github.com/components/jquery.git
+    jquery-ui git://github.com/components/jqueryui
+    jquery.cookie git://github.com/carhartl/jquery-cookie.git
+    jquery-placeholder git://github.com/mathiasbynens/jquery-placeholder.git
+    jquery-file-upload git://github.com/blueimp/jQuery-File-Upload.git
+    jasmine-jquery git://github.com/velesin/jasmine-jquery
+    jquery.ui git://github.com/jquery/jquery-ui.git
+    jquery.scrollTo git://github.com/flesler/jquery.scrollTo.git
+    jquery-migrate git://github.com/appleboy/jquery-migrate.git
+    jquery.validation git://github.com/jzaefferer/jquery-validation.git
+    ...
+
+$ bower install jquery --save
+              </code></pre>
+            </p>
+          </section>
+
+          <section>
+            <p>
+              <a href="http://yeoman.io/" target="_blank">Yeoman</a> combines Grunt and Bower into a consistent workflow. 
+              Using a <span class="highlight"><i>generator</i></span> concept inspired by 
+              Ruby on Rails, Yeoman creates a basic project structure based on a template.
+            </p>
+            <p>
+              <soan class="highlight"><i>Think maven archetypes!</i></span>
+            </p>
+            <pre><code class="bash" data-trim style="font-size: 18px; margin-bottom: 30px;">
+$ npm install -g generator-angular # install generator
+$ yo angular                       # scaffold out a AngularJS project
+$ bower install angular-ui         # install a dependency for your project from Bower
+$ grunt test                       # test your app
+$ grunt server                     # preview your app
+$ grunt                            # build the application for deployment
+            </code></pre>
+          </section>
+
+          <section>
+            <p>
+              Automating your build process with <span class="highlight">Jenkins</span> is fairly easy for your Node project.
+            </p>
+            <div class="flip"> 
+              <div class="card"> 
+                <div class="face front">
+                  <img src="images/jenkins-overview.png" />
+                </div> 
+                <div class="face back">
+                  <img src="images/jenkins.png" />
+                </div>
+              </div> 
+            </div>
+            <span class="icon"><i class="fa fa-refresh"></i></span>
+          </section>
+
+          <section>
+            <p>
+              Tests and code coverage are kicked off by <span class="highlight">Grunt</span>. The JavaScript test framework 
+              <span class="highlight">Mocha</span> provides various reporters such as <span class="highlight">xUnit</span> which
+              Jenkins understands. <span class="highlight">Blanket.js</span> provides the code coverage information that then is 
+              converted by a Mocha reporter into the widely understood cobertura XML schema.
+            </p>
+            <p>
+              <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+'use strict';
+
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    
+    mochaTest: {
+      all: {
+        src: ['test/**/*.js'],
+        options: {
+          require: 'coverage/blanket',
+          reporter: 'xunit',
+          quiet: true,
+          captureFile: 'test-reports.xml'
+        }
+      },
+
+      coverage: {
+        src: ['test/**/*.js'],
+        options: {
+          reporter: 'mocha-cobertura-reporter',
+          quiet: true,
+          captureFile: 'coverage.xml'
+        }
+      }
+    }
+  });
+
+  grunt.loadNpmTasks('grunt-mocha-test');
+  
+  grunt.task.registerTask('test', ['mochaTest']);
+
+};
+              </code></pre>
+            </p>
+          </section>
+
+          <section>
+            <p>For IDE's I've found <a href="http://www.nodeclipse.org/" target="_blank">Nodeclipse</a> to work reasonably well. 
+              Another one is <a href="http://www.jetbrains.com/webstorm/" target="_blank">Webstorm</a> which seems to be more 
+              mature than Nodeclipse and is based on IntelliJ.
+            </p>
+            <p>Run the following command to turn any existing Node project into a Nodeclipse project and then go to Eclipse and Import an Existing Project.</p>
+            <pre><code class="bash" data-trim style="font-size: 18px; margin-bottom: 30px;">
+$ nodeclipse -p
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
+          
+          <section>
+            <h2>Hardening Node.js for Production</h2>
+          </section>
+
+          <section>
+            <p>Make sure you run your Node application in <span class="highlight">production mode</span>. Duh!</p>
+            <pre><code class="bash" data-trim style="font-size: 18px; margin-bottom: 30px;">
+$ NODE_ENV=production node app.js            
+            </code></pre>
+            <p>Whenever a node.js error is unhandled, it unwinds the stack and leaves V8 in an unrecoverable state. 
+              The only recovery is to restart the process. There are few modules such as 
+              <a href="http://promotion.pm2.io/" target="_blank">pm2</a>, <a href="https://github.com/nodejitsu/forever" target="_blank">forever</a> that help. 
+          </section>
+
+          <section>
+            <p>Make sure to handle uncaughtException events like this:</p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var logger = require('./logger')
+process.on('uncaughtException', function(err) {
+  logger.error('uncaughtException:', err.message);
+  logger.error(err.stack);
+  process.exit(1);
+});
+            </code></pre>
+            <p>Listen to all error events: net.Server, tls.Server, http.Server, https.Server:</p>
+            <pre><code class="javascript" data-trim style="font-size: 18px; margin-bottom: 30px;">
+var logger = require('./logger')
+server.on('error', function (err) {
+  logger.error(err);
+  logger.error(err.stack);
+});
+            </code></pre>
+          </section>
+
+          <section>
+            <p>If you're deploying a web application I would recommend that you try to prevent hitting your Node.js processes 
+              with unnecessary traffic and use <span class="highlight">nginx</span> or <span class="highlight">Apache</span> to 
+              do all of the <span class="highlight">load balancing, gzip encoding, HTTP caching, static file serving</span> etc.</p> 
+            </p>
+            <pre><code class="nginx" data-trim style="font-size: 18px; margin-bottom: 30px;">
+ http {
+   proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=one:8m max_size=3000m inactive=600m;
+   proxy_temp_path /var/tmp;
+   include mime.types;
+   default_type application/octet-stream;
+   sendfile on;
+   keepalive_timeout 65;
+
+   gzip on;
+   gzip_comp_level 6;
+   gzip_vary on;
+   gzip_min_length 1000;
+   gzip_proxied any;
+   gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+   gzip_buffers 16 8k;
+
+   upstream silly_face_society_upstream {
+    server 127.0.0.1:61337;
+    server 127.0.0.1:61338;
+    keepalive 64;
+  }
+
+  server {
+    listen 80;
+    listen 443 ssl;
+
+    server_name localhost;
+    return 301 $scheme://localhost$request_uri;
+  }
+
+  server {
+    listen 80;
+    listen 443 ssl;
+
+    server_name localhost;
+
+    error_page 502  /errors/502.html;
+
+    location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {
+      root /usr/local/silly_face_society/node/public;
+      access_log off;
+      expires max;
+    }
+
+    location /errors {
+      internal;
+      alias /usr/local/silly_face_society/node/public/errors;
+    }
+
+    location / {
+      proxy_redirect off;
+      proxy_set_header   X-Real-IP         $remote_addr;
+      proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto $scheme;
+      proxy_set_header   Host              $http_host;
+      proxy_set_header   X-NginX-Proxy     true;
+      proxy_set_header   Connection "";
+      proxy_http_version 1.1;
+      proxy_cache one;
+      proxy_cache_key sfs$request_uri$scheme;
+      proxy_pass http://silly_face_society_upstream;
+    }
+  }
+}
+            </code></pre>
+          </section>
+
+          <section>
+            <p>Additionally, you can run <a href="https://github.com/Unitech/pm2" target="_blank">pm2</a> on each of your dedicated Node servers.</p>
+            <p>pm2 is perfect when you need to spread your stateless code accross all CPUs available on a server, to keep all processes alive forever and to 0s reload it.
+              Or have another nginx load balancer and reverse proxy on each Node server and start your app manually on different ports.
+            </p>
+            <pre><code class="bash" data-trim style="font-size: 18px; margin-bottom: 10px;">
+$ pm2 start app.js -i max  # Will start maximum processes depending on CPU availables
+            </code></pre>
+            <img src="images/pm2-start.png" height="500px"/>
+          </section>
+
+          <section>
+            <iframe src="http://www.slideshare.net/slideshow/embed_code/15967228?startSlide=29" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/BenLin2/webconf-nodejsproductionarchitecture" title="Webconf nodejs-production-architecture" target="_blank">Webconf nodejs-production-architecture</a> </strong> from <strong><a href="http://www.slideshare.net/BenLin2" target="_blank">Ben Lin</a></strong> </div>
+          </section>
+
+        </section>
+
+        <section>
+          <p>This presentation uses <a href="http://lab.hakim.se/reveal-js/#/" target="_blank">Reveal.js</a> - The HTML Presentation Framework.</p>
+          <p>Please let me know if you want to use this custom Zuhlke theme for your own presentation.</p>
+          <br>
+          <p>
+            Do you want to get involved with Node?
+            <ul>
+              <li>Book: <a href="http://www.amazon.co.uk/Node-js-Action-Mike-Cantelon/dp/1617290572" target="_blank">Node.js In Action</a></li>
+              <li>Book: <a href="http://www.amazon.co.uk/Secrets-JavaScript-Ninja-John-Resig/dp/193398869X" target="_blank">Secrets Of The JavaScript Ninja</a></li>
+              <li>Online: <a href="http://nodeschool.io/" target="_blank">nodeschool.io - LEARN NODE.JS WITH INTERACTIVE LESSONS</a></li>
+              <li>Online: <a href="http://nodeup.com/" target="_blank">nodeup.com - Node Podcasts</a></li>
+              <li>Online: <a href="http://www.joyent.com/developers/node" target="_blank">http://www.joyent.com/developers/node</a></li>
+              <li>Check out my examples on GitHub: <a href="https://github.com/ToastShaman" target="_blank">https://github.com/ToastShaman</a></li>
+            </ul>
+          </p>
+        </section>
+
+        <section data-background="css/theme/zuhlke/zuhlke_background.jpg"></section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'linear',
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+
+  </body>
+</html>

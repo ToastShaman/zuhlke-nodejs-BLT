@@ -1,0 +1,1 @@
+This example defines a custom node module that we'll include in our main node application.
